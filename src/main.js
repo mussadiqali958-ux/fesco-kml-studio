@@ -78,9 +78,12 @@ function loadDataset(dataset, filename) {
 }
 
 function coordinate(row) {
-  const longitude = Number(String(row[$('#x').value] ?? '').replace(/,/g, '').trim());
-  const latitude = Number(String(row[$('#y').value] ?? '').replace(/,/g, '').trim());
-  const valid = Number.isFinite(longitude) && Number.isFinite(latitude)
+  const rawLongitude = String(row[$('#x').value] ?? '').replace(/,/g, '').trim();
+  const rawLatitude = String(row[$('#y').value] ?? '').replace(/,/g, '').trim();
+  const longitude = Number(rawLongitude);
+  const latitude = Number(rawLatitude);
+  const valid = rawLongitude !== '' && rawLatitude !== ''
+    && Number.isFinite(longitude) && Number.isFinite(latitude)
     && longitude >= -180 && longitude <= 180 && latitude >= -90 && latitude <= 90;
   return { longitude, latitude, valid };
 }
